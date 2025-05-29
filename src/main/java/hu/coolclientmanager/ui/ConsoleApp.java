@@ -1,15 +1,20 @@
 package hu.coolclientmanager.ui;
 
-import hu.coolclientmanager.model.Customer;
 import hu.coolclientmanager.model.Address;
+import hu.coolclientmanager.model.Customer;
+import hu.coolclientmanager.repository.CustomerRepository;
+import hu.coolclientmanager.repository.DatabaseInitializer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleApp {
-    private List<Customer> customers = new ArrayList<>();
-    private Scanner scanner = new Scanner(System.in);
+    private final CustomerRepository customerRepository = new CustomerRepository();
+    private final Scanner scanner = new Scanner(System.in);
+
+    public ConsoleApp() {
+        DatabaseInitializer.initializeDatabase(); // Adatbázis inicializálás
+    }
 
     public void start() {
         boolean running = true;
@@ -17,6 +22,7 @@ public class ConsoleApp {
             System.out.println("\nÜdv a CoolClientManager-ben! Válassz egy műveletet:");
             System.out.println("1 - Ügyfél hozzáadása");
             System.out.println("2 - Ügyfelek listázása");
+            System.out.println("3 - Ügyfél törlése");
             System.out.println("0 - Kilépés");
 
             int choice = scanner.nextInt();
@@ -25,6 +31,7 @@ public class ConsoleApp {
             switch (choice) {
                 case 1 -> addCustomer();
                 case 2 -> listCustomers();
+                case 3 -> deleteCustomer();
                 case 0 -> running = false;
                 default -> System.out.println("Érvénytelen választás, próbáld újra.");
             }
@@ -45,21 +52,31 @@ public class ConsoleApp {
         String street = scanner.nextLine();
 
         System.out.print("Házszám: ");
-        int number = scanner.nextInt();
+        String number = scanner.nextLine();
         scanner.nextLine(); // Enter kezelés
 
         Address address = new Address(town, street, number);
-        Customer customer = new Customer(customers.size() + 1, name, taxNumber, address);
-        customers.add(customer);
+        Customer customer = new Customer(0, name, taxNumber, address);
 
-        System.out.println("✅ Ügyfél hozzáadva!");
+        customerRepository.saveCustomer(customer);
+        System.out.println("✅ Ügyfél elmentve az adatbázisba!");
     }
 
     private void listCustomers() {
+        List<Customer> customers = customerRepository.loadCustomers();
         System.out.println("\n📋 Ügyfelek listája:");
         for (Customer customer : customers) {
             System.out.println(customer.getCompanyName() + " | Adószám: " + customer.getTaxNumber());
         }
+    }
+
+    private void deleteCustomer() {
+        System.out.print("Törlendő ügyfél ID: ");
+        long id = scanner.nextLong();
+        scanner.nextLine(); // Enter kezelés
+
+        customerRepository.deleteCustomer(id);
+
     }
 
     public static void main(String[] args) {
