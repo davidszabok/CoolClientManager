@@ -1,5 +1,7 @@
 package hu.coolclientmanager.model;
 
+import lombok.Setter;
+
 import java.util.List;
 
 public class Supplier {
@@ -7,6 +9,7 @@ public class Supplier {
     private String companyName;
     private String taxNumber;
     private Address companyAddress;
+    @Setter
     private List<ContactPerson> contactPersons;
 
     public Supplier(long id, String companyName, String taxNumber, Address companyAddress) {
@@ -35,9 +38,5 @@ public class Supplier {
 
     public List<ContactPerson> getContactPersons() {
         return contactPersons;
-    }
-
-    public void setContactPersons(List<ContactPerson> contactPersons) {
-        this.contactPersons = contactPersons;
     }
 }
