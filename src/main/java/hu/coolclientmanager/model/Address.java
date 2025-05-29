@@ -3,9 +3,9 @@ package hu.coolclientmanager.model;
 public class Address {
     private String town;
     private String street;
-    private int number;
+    private String number; // Módosítás: int → String
 
-    public Address(String town, String street, int number) {
+    public Address(String town, String street, String number) {
         this.town = town;
         this.street = street;
         this.number = number;
@@ -19,7 +19,7 @@ public class Address {
         return street;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 }
