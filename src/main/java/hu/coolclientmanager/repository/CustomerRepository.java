@@ -22,7 +22,7 @@ public class CustomerRepository {
             pstmt.setString(2, customer.getTaxNumber());
             pstmt.setString(3, customer.getBillingAddress().getTown());
             pstmt.setString(4, customer.getBillingAddress().getStreet());
-            pstmt.setInt(5, customer.getBillingAddress().getNumber());
+            pstmt.setString(5, customer.getBillingAddress().getNumber()); // Javítás
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class CustomerRepository {
              ResultSet rs = stmt.executeQuery("SELECT * FROM customers")) {
 
             while (rs.next()) {
-                Address address = new Address(rs.getString("town"), rs.getString("street"), rs.getInt("number"));
+                Address address = new Address(rs.getString("town"), rs.getString("street"), rs.getString("number"));
                 Customer customer = new Customer(rs.getLong("id"), rs.getString("company_name"), rs.getString("tax_number"), address);
                 customers.add(customer);
             }

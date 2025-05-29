@@ -65,7 +65,7 @@ public class ConsoleApp {
         List<Customer> customers = customerRepository.loadCustomers();
         System.out.println("\n📋 Ügyfelek listája:");
         for (Customer customer : customers) {
-            System.out.println(customer.getCompanyName() + " | Adószám: " + customer.getTaxNumber());
+            System.out.println(customer.getId() + customer.getCompanyName() + " | Adószám: " + customer.getTaxNumber());
         }
     }
 
