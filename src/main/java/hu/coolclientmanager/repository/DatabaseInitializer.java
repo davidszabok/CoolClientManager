@@ -15,15 +15,15 @@ public class DatabaseInitializer {
              Statement stmt = conn.createStatement()) {
 
             String createTableSQL = """
-                CREATE TABLE IF NOT EXISTS customers (
-                    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                    company_name VARCHAR(255),
-                    tax_number VARCHAR(20),
-                    town VARCHAR(100),
-                    street VARCHAR(100),
-                    number INT
-                )
-            """;
+                        CREATE TABLE IF NOT EXISTS customers (
+                            id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                            company_name VARCHAR(255),
+                            tax_number VARCHAR(20),
+                            town VARCHAR(100),
+                            street VARCHAR(100),
+                            number VARCHAR(20)  -- Módosítás: INT → VARCHAR(20)
+                        )
+                    """;
             stmt.execute(createTableSQL);
         } catch (SQLException e) {
             e.printStackTrace();

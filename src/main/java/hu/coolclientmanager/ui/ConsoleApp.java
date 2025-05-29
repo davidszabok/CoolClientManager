@@ -52,8 +52,7 @@ public class ConsoleApp {
         String street = scanner.nextLine();
 
         System.out.print("Házszám: ");
-        String number = scanner.nextLine();
-        scanner.nextLine(); // Enter kezelés
+        String number = scanner.nextLine(); // Most már String formátumú
 
         Address address = new Address(town, street, number);
         Customer customer = new Customer(0, name, taxNumber, address);
