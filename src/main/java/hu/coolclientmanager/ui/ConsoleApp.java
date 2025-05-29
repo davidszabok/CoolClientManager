@@ -5,9 +5,6 @@ import hu.coolclientmanager.model.Customer;
 import hu.coolclientmanager.repository.CustomerRepository;
 import hu.coolclientmanager.repository.DatabaseInitializer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,16 +12,6 @@ public class ConsoleApp {
 
     private final CustomerRepository customerRepository = new CustomerRepository();
     private final Scanner scanner = new Scanner(System.in);
-    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-    private String readInput(String prompt) {
-        System.out.print(prompt);
-        try {
-            return reader.readLine().trim();
-        } catch (IOException e) {
-            return "";
-        }
-    }
 
     public ConsoleApp() {
         DatabaseInitializer.initializeDatabase(); // Adatbázis inicializálás
